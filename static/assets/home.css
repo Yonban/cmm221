@@ -1,7 +1,3 @@
-header .navbar-tabs {
-  justify-content: center; 
-}
-
 .highlight {
 	margin-bottom: 0 !important;
 }
@@ -24,11 +20,11 @@ header .navbar-tabs {
 	border-top: 0.1rem solid #FF0000;
 }
 
-.thumbnail .thumbnai-item + .thumbnai-item{
+.thumbnail .thumbnail-item + .thumbnail-item{
 	border-left: .1rem solid #FF0000;
 }
 
-.thumbnail .thumbnai-item {
+.thumbnail .thumbnail-item {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;

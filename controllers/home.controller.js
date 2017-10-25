@@ -1,31 +1,40 @@
+const Thumbnais = require('../models/thumbnails')
+const News = require('../models/news')
+
 exports.index = function (req, res) {
 
 	let content = {
 		highlight: {
 			url: '/assets/images/home/banner/highlight.jpg',
-			title: 'Yon'
-		},
-		thumbnail: [
-		{
-			url: '/assets/images/home/banner/thumbnail-1.jpg',
-			title: 'thumbnail-1'
-		},
-		{
-			url: '/assets/images/home/banner/thumbnail-2.jpg',
-			title: 'thumbnail-2'
-		},
-		{
-			url: '/assets/images/home/banner/thumbnail-3.jpg',
-			title: 'thumbnail-3'
-		},
-		{
-			url: '/assets/images/home/banner/thumbnail-4.jpg',
-			title: 'thumbnail-4'
-		},
-	  ]
+			title: 'Welcome'
+		}
 	}
 
-	res.render('home.twig', content)
+	const thumbnailsPromise = new Promise(function(resolve, reject) {
+		Thumbnails.findAll().then(function(thumbnails) {
+			resolve(thumbnails)
+		})
+	})
+
+	const newsPromise = new Promise(function(resolve, reject) {
+		News.findAll().then(function(news) {
+			resolve(news)
+		})
+	})
+
+	Promise.all([
+		thumbnailsPromise,
+		newsPromise
+	]).then(function(values) {
+		let thumbnails = values[0]
+		let news = values[1]
+
+		content.thumbnails = thumbnails
+		content.news = news
+
+		res.render('home.twig', content)
+	})
+
 }
 
 //let content = {
